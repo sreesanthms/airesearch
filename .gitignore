@@ -1,0 +1,46 @@
+# ─────────────────────────────────────────────
+# ResearchPilot Root .gitignore
+# ─────────────────────────────────────────────
+
+# Environment files and API keys (CRITICAL SECURITY)
+.env
+*.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Storage & User Uploads
+backend/uploads/*
+!backend/uploads/.gitkeep
+backend/storage/faiss/*
+!backend/storage/faiss/.gitkeep
+
+# Scratch & test scripts
+backend/test_stream*.py
+backend/test_gemini_models.py
+
+# Python & Pytest
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+*.so
+.venv/
+venv/
+ENV/
+
+# Node.js & Frontend Build
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/dist-ssr/
+*.local
+
+# IDE & OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

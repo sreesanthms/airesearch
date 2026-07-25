@@ -1,0 +1,3 @@
+"""
+ResearchPilot main application package.
+"""
