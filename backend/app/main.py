@@ -29,7 +29,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title=settings.app_name,
     version=settings.app_version,
-    description="ResearchPilot Backend — PDF Text Extraction, FAISS RAG Indexing, and Gemini Flash Q&A Engine",
+    description="ResearchPilot Backend — PDF Text Extraction, FAISS RAG Indexing, and Gemini 2.5 Flash Q&A Engine",
     lifespan=lifespan,
 )
 
@@ -41,13 +41,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
-@app.get("/health", tags=["health"])
-async def root_health_check():
-    """Root health check endpoint for AWS Elastic Beanstalk Load Balancer health probes."""
-    return {"status": "healthy", "version": settings.app_version}
-
 
 # Include v1 API router under /api/v1
 app.include_router(api_router, prefix="/api/v1")

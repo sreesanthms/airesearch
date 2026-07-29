@@ -5,8 +5,7 @@ FROM python:3.12-slim
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     PIP_NO_CACHE_DIR=1 \
-    PIP_DISABLE_PIP_VERSION_CHECK=1 \
-    PORT=8000
+    PIP_DISABLE_PIP_VERSION_CHECK=1
 
 WORKDIR /app
 
@@ -32,15 +31,15 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy backend source code
 COPY . .
 
-# Ensure uploads/ and storage/faiss directories exist at runtime
+# Ensure uploads/ and storage/faiss directories exist
 RUN mkdir -p uploads storage/faiss
 
 # Expose API port 8000
 EXPOSE 8000
 
-# Container Healthcheck using Python urllib to verify root /health endpoint
+# Container Healthcheck using Python urllib to verify /api/v1/health endpoint
 HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
-    CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:' + str(__import__('os').getenv('PORT', 8000)) + '/health')" || exit 1
+    CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/v1/health')" || exit 1
 
-# Start application using shell form to resolve dynamic $PORT environment variable
-CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}"]
+# Start the application using Uvicorn
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

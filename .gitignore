@@ -10,6 +10,10 @@
 .env.test.local
 .env.production.local
 
+# Elastic Beanstalk CLI temporary generated configs
+.elasticbeanstalk/
+.platform/
+
 # Storage & User Uploads
 backend/uploads/*
 !backend/uploads/.gitkeep
