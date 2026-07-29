@@ -84,7 +84,7 @@ export const FileUploader = ({ onFileSelect }: FileUploaderProps) => {
         err && typeof err === 'object' && 'response' in err
           ? (err as { response?: { data?: { detail?: string } } }).response?.data?.detail
           : null;
-      setErrorMessage(detail || 'Upload failed. Ensure backend server is running on http://localhost:8000');
+      setErrorMessage(detail || 'Upload failed. Please ensure the backend server is running and accessible.');
     }
   };
 
