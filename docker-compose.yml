@@ -3,7 +3,6 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: researchpilot-backend
     ports:
       - "${BACKEND_PORT:-8000}:8000"
     environment:
@@ -28,14 +27,12 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    container_name: researchpilot-frontend
     ports:
       - "${PORT:-80}:80"
     networks:
       - researchpilot-net
     depends_on:
-      backend:
-        condition: service_healthy
+      - backend
     restart: unless-stopped
 
 networks:
